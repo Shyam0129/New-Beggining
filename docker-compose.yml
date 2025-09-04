@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+    environment:
+      - MCP_SERVER_URL=http://mcp-server:5000
+
+  frontend:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./frontend:/usr/share/nginx/html
+
+  mcp-server:
+    build: ./mcp_server
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./mcp_server:/app
